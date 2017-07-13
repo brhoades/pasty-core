@@ -3,10 +3,10 @@ define(["require", "exports"], function (require, exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     // https://jsfiddle.net/Guffa/DDn6W/
     function randomPassword(length) {
-        let chars = "abcdefghijklmnopqrstuvwxyz-_.ABCDEFGHIJKLMNOP1234567890";
-        let pass = "";
+        var chars = "abcdefghijklmnopqrstuvwxyz-_.ABCDEFGHIJKLMNOP1234567890";
+        var pass = "";
         for (var x = 0; x < length; x++) {
-            let i = Math.floor(Math.random() * chars.length);
+            var i = Math.floor(Math.random() * chars.length);
             pass += chars.charAt(i);
         }
         return pass;
@@ -14,8 +14,8 @@ define(["require", "exports"], function (require, exports) {
     exports.randomPassword = randomPassword;
     // recursively populate missing config entries from default
     function populateDefaults(config, def) {
-        let ret = {};
-        Object.keys(def).map((key) => {
+        var ret = {};
+        Object.keys(def).map(function (key) {
             if (typeof (def[key]) == 'object') {
                 // TODO: if config doesn't have the obj, this'd be bad
                 ret[key] = populateDefaults(config[key], def[key]);
