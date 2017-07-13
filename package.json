@@ -1,0 +1,24 @@
+{
+  "name": "pasty-core",
+  "version": "0.0.1",
+  "description": "Common code for pasty client/server implementations.",
+  "scripts": {
+    "build": "tsc -p . --outDir dist/",
+    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./main.ts",
+    "server": "npm run build && node dist/main.js",
+    "prepublishOnly": "tsc -p . --outDir dist/"
+  },
+  "dependencies": {
+    "crypto-js": "^3.1.9-1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "typescript": "^2.3.3"
+  },
+  "main": "dist/main.js",
+  "files": [
+    "dist",
+    "src",
+    "tsconfig.json"
+  ]
+}
