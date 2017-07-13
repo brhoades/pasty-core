@@ -1,4 +1,2 @@
-import { crypto } from './crypto';
-
-export const decryptFile = crypto.decryptFile;
-export const encryptFile = crypto.encryptFile;
+export { decryptFile, encryptFile } from './crypto';
+export { randomPassword, populateDefaults } from './util';

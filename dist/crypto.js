@@ -5,6 +5,7 @@ define(["require", "exports", "./util", "crypto-js/aes", "crypto-js/enc-utf8"], 
         var rawWords = CAES.decrypt(data, key);
         return CENC.stringify(rawWords);
     }
+    exports.decryptFile = decryptFile;
     function encryptFile(b64data, keysize) {
         if (keysize === void 0) { keysize = 32; }
         var result = CENC.parse(b64data);
@@ -16,8 +17,5 @@ define(["require", "exports", "./util", "crypto-js/aes", "crypto-js/enc-utf8"], 
             key: password
         };
     }
-    exports.crypto = {
-        decryptFile: decryptFile,
-        encryptFile: encryptFile
-    };
+    exports.encryptFile = encryptFile;
 });
