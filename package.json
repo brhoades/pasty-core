@@ -9,7 +9,8 @@
     "prepublishOnly": "tsc -p . --outDir dist/"
   },
   "dependencies": {
-    "crypto-js": "^3.1.9-1"
+    "crypto-js": "^3.1.9-1",
+    "utf8": "^2.1.2"
   },
   "devDependencies": {
     "nodemon": "^1.11.0",
