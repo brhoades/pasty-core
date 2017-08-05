@@ -1,4 +1,4 @@
-import { encode } from 'utf8';
+import { Buffer } from 'buffer';
 
 import MetaData from './metadata';
 
@@ -10,12 +10,12 @@ export default class File {
 
   // base64 string for forcing a file download.
   base64DownloadString(): string {
-    return `data:application/octet-stream;base64,${btoa(encode(this.data))}`;
+    return `data:application/octet-stream;base64,${this.getBase64Data()}`;
   }
 
   // base64 string for feeding into a browser URL.
   base64ViewString(): string {
-    return `data:${this.meta.mime};base64,${this.data}`;
+    return `data:${this.meta.mime};base64,${this.getBase64Data()}`;
   }
 
   // return json-serialized file
@@ -27,7 +27,7 @@ export default class File {
     return {
       id: this.id,
       name: this.name,
-      data: this.data,
+      data: this.getBase64Data(),
       meta: this.meta
     }
   }
@@ -38,6 +38,10 @@ export default class File {
     }
 
     return this.name;
+  }
+  
+  getBase64Data(): string {
+    return this.data;
   }
 
   static isReadable(mime: string): boolean {

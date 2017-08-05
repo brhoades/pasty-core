@@ -1,4 +1,4 @@
-import { encode } from 'utf8';
+import { Buffer } from 'buffer';
 
 import File from './file';
 import Paste from './paste';
@@ -22,9 +22,13 @@ export default class CodeFile extends File {
     return {
       id: this.id,
       name: this.name,
-      data: btoa(encode(this.data)),
+      data: this.getBase64Data(),
       meta: this.meta
     }
+  }
+
+  getBase64Data(): string {
+    return Buffer.from(this.data).toString('base64');
   }
 
   static empty(id: number = 0): CodeFile {
