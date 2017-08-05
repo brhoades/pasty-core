@@ -4,7 +4,7 @@ import PasteParserV1 from './pasteparserv1';
 import { PasteShape } from '../pastes/shapes';
 
 export default class PasteParser {
-  parse(name: string, key: string, json: string): Paste {
+  static parse(name: string, key: string, json: string): Paste {
     const pasteData: PasteShape = JSON.parse(json);
     let parser: PasteParserI;
 

@@ -1,11 +1,12 @@
 import { encode } from 'utf8';
 
 import MetaData from './metadata';
+import Paste from './paste';
 
 
 export default class File {
-  constructor(public id: number, public name: string , public data: string,
-              public meta: MetaData) {
+  constructor(public paste: Paste, public id: number, public name: string,
+              public data: string, public meta: MetaData) {
   }
 
   // base64 string for forcing a file download.
