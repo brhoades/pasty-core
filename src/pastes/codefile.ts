@@ -9,9 +9,10 @@ export default class CodeFile extends File {
   highlighted: number[] = [];
 
   constructor(public id: number, public name: string,
-              public data: string, public type: string) {
+              public data: string, public type: string,
+              public mime: string = "text/plain") {
     super(id, name, data, {
-      mime: 'text/plain',
+      mime,
       highlight: type,
     });
   }

@@ -1,6 +1,6 @@
 {
   "name": "pasty-core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Common code for pasty client/server implementations.",
   "scripts": {
     "build": "tsc -p . --outDir dist/",

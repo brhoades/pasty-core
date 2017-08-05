@@ -39,4 +39,21 @@ export default class File {
 
     return this.name;
   }
+
+  static isReadable(mime: string): boolean {
+    if (/text\//.test(mime)) {
+      return true;
+    }
+
+    if (mime == "application/javascript") {
+      return true;
+    }
+
+    return false;
+  }
+
+  // helper method to determine if a file is viewable.
+  isReadable(): boolean {
+    return File.isReadable(this.meta.mime);
+  }
 };
