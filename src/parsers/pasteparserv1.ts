@@ -11,7 +11,6 @@ export default class PasteParserV1 implements PasteParserI {
 
     if (pasteData.type == "code") {
       paste.files = pasteData.files.map((file: FileShape): CodeFile => {
-        console.dir(file);
         return new CodeFile(file.id, file.name, file.contents, file.type);
       });
 

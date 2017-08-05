@@ -12,7 +12,6 @@ export default class PasteParserV2 implements PasteParserI {
     const paste: Paste = new Paste(name, key);
 
     paste.files = pasteData.files.map((f: FileShape, i: number) => {
-      console.dir(f);
       if (f.meta.mime == 'text/plain') {
         return new CodeFile(i, f.name, decode(atob(f.data)), f.meta.highlight);
       }

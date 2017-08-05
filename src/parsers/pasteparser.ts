@@ -9,9 +9,6 @@ export default class PasteParser {
     const pasteData: PasteShape = JSON.parse(json);
     let parser: PasteParserI;
 
-    // if (pasteData.version == 2) {
-    //   TODO
-    // }
     if (pasteData.version == undefined) {
       parser = new PasteParserV1();
     } else if (pasteData.version == 2) {
