@@ -13,4 +13,8 @@ export default class Paste {
       version: 2
     });
   }
+
+  static empty(): Paste {
+    return new Paste("", "");
+  }
 };

@@ -1,17 +1,21 @@
 import { encode } from 'utf8';
 
 import MetaData from './metadata';
-import Paste from './paste';
 
 
 export default class File {
-  constructor(public paste: Paste, public id: number, public name: string,
+  constructor(public id: number, public name: string,
               public data: string, public meta: MetaData) {
   }
 
   // base64 string for forcing a file download.
   base64DownloadString(): string {
     return `data:application/octet-stream;base64,${btoa(encode(this.data))}`;
+  }
+
+  // base64 string for feeding into a browser URL.
+  base64ViewString(): string {
+    return `data:${this.meta.mime};base64,${this.data}`;
   }
 
   // return json-serialized file

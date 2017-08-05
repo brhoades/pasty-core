@@ -10,12 +10,12 @@ export default class PasteParserV1 implements PasteParserI {
     const paste: Paste = new Paste(name, key);
 
     if (pasteData.type == "code") {
-      paste.files = paste.files.map((file: FileShape): CodeFile => {
-        return new CodeFile(paste, file.id, file.name, file.contents, file.type);
+      paste.files = pasteData.files.map((file: FileShape): CodeFile => {
+        return new CodeFile(file.id, file.name, file.contents, file.type);
       });
 
     } else {
-      let file: PasteFile = new PasteFile(paste, 0, pasteData.name, pasteData.data,
+      let file: PasteFile = new PasteFile(0, pasteData.name, pasteData.data,
                                           pasteData.mime);
       paste.files.push(file);
     }
