@@ -16,8 +16,11 @@ export function populateDefaults(config: any, def: any): any {
   let ret = {};
 
   Object.keys(def).map((key) => {
-    if(typeof(def[key]) == 'object') {
-      // TODO: if config doesn't have the obj, this'd be bad
+    if (typeof(def[key]) == 'object') {
+      if (config[key] == undefined) {
+        config[key] = {};
+      }
+
       ret[key] = populateDefaults(config[key], def[key]);
     } else if(def[key] != undefined) {
       if(config[key] == undefined) {

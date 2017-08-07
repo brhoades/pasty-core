@@ -17,4 +17,4 @@ export default class Paste {
   static empty(): Paste {
     return new Paste("", "");
   }
-};
+}
