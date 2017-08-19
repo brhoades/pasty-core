@@ -7,3 +7,5 @@ export { default as Paste } from './pastes/paste';
 export { default as File } from './pastes/file';
 export { default as PasteFile } from './pastes/pastefile';
 export { default as CodeFile } from './pastes/codefile';
+
+export { default as MetaData } from './pastes/metadata';
