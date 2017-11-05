@@ -1,6 +1,8 @@
 export { decryptFile, encryptFile } from './crypto';
 export { randomPassword, populateDefaults } from './util';
 export { default as PasteParser } from './parsers/pasteparser';
+export { BlobParserI } from "./parsers/blobparseri";
+export { default as BlobParser } from "./parsers/blobparser";
 
 export { default as Paste } from './pastes/paste';
 

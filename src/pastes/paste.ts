@@ -1,3 +1,5 @@
+import { BSON } from 'bson';
+
 import File from './file';
 
 
@@ -8,9 +10,11 @@ export default class Paste {
   }
 
   serialize(): string {
-    return JSON.stringify({
+    const bson = new BSON();
+
+    return bson.serialize({
       files: this.files.map(f => f.rawObject()),
-      version: 2
+      version: 3
     });
   }
 

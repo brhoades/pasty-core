@@ -27,7 +27,7 @@ export default class File {
     return {
       id: this.id,
       name: this.name,
-      data: this.getBase64Data(),
+      data: Buffer.from(this.data, 'base64'),
       meta: this.meta
     }
   }

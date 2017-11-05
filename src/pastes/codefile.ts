@@ -17,13 +17,13 @@ export default class CodeFile extends File {
     });
   }
 
-  // although our contents are plain text, base64 them for consistency
+  // Return this paste for BSON encoding
   rawObject() {
     return {
       id: this.id,
       name: this.name,
-      data: this.getBase64Data(),
-      meta: this.meta
+      data: Buffer.from(this.data, 'base64'),
+      meta: this.meta,
     }
   }
 
