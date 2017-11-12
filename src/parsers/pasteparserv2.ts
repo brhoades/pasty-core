@@ -12,6 +12,10 @@ export default class PasteParserV2 implements PasteParserI {
     const paste: Paste = new Paste(name, key);
 
     paste.files = pasteData.files.map((f: FileShape, i: number) => {
+      if (typeof f.data !== 'string') {
+          throw new Error("Unsupported data type in V2 Paste.")
+      }
+
       if (CodeFile.isReadable(f.meta.mime)) {
         return new CodeFile(i, f.name, Buffer.from(f.data, 'base64').toString(),
                             f.meta.highlight);
