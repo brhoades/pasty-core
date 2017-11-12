@@ -28,6 +28,7 @@ export default class PasteParser {
       pasteData = bson.deserialize(data);
 
       if (pasteData.version === 3) {
+        parser = new PasteParserV3();
       } else {
         throw new Error(`Unknown paste API version: "${pasteData.version}".`);
       }

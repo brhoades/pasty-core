@@ -1,3 +1,6 @@
+import { Buffer } from 'buffer';
+import * as crypto from "crypto";
+
 import PasteParser from './pasteparser';
 import { BlobParserI } from './blobparseri';
 import BlobDataI from '../blobs/blobdata';
@@ -15,8 +18,17 @@ export default class BlobParserV2 implements BlobParserI {
   // at construction.
   decrypt(): Paste {
     if (typeof this.data === 'string') {
-      throw Error('Unsupported data type for v3 blob API.');
+      throw Error('Unsupported data type for Blob API V2.');
     }
-    return PasteParser.parse(this.name, this.key, this.data.data);
+
+    const key = crypto.pbkdf2Sync(
+      this.key, <any>(this.data.salt.buffer), this.data.iterations, 5, 'sha512'
+    );
+    const decipher = crypto.createDecipher('aes256', key);
+    const decrypted = Buffer.concat(
+      [decipher.update(<any>(this.data.data.buffer)), decipher.final()]
+    );
+
+    return PasteParser.parse(this.name, this.key, decrypted);
   }
 }

@@ -1,4 +1,5 @@
 import { BSON } from 'bson';
+import { Buffer } from 'buffer';
 
 import File from './file';
 
@@ -9,7 +10,7 @@ export default class Paste {
   constructor(public name: string, public key: string) {
   }
 
-  serialize(): string {
+  serialize(): Buffer {
     const bson = new BSON();
 
     return bson.serialize({

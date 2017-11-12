@@ -15,11 +15,10 @@ import BlobParserV2 from './blobparserv2';
 export default class BlobParser {
   static parse(data: string, name: string, key: string): BlobParserI {
     let parser: BlobParserI;
-
     const bson = new BSON();
 
     try {
-      const results = bson.deserialize(data);
+      const results = bson.deserialize(Buffer.from(data));
 
       if(results.version === 2) {
         return new BlobParserV2(results, name, key);
@@ -27,6 +26,8 @@ export default class BlobParser {
         throw new Error(`Unknown blob API version: "${results.version}".`);
       }
     } catch (e) {
+      console.log("Not v2");
+      console.log(e);
       return new BlobParserV1(data, name, key);
     }
   }

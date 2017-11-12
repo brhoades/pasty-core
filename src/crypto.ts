@@ -1,30 +1,46 @@
-import * as CAES from "crypto-js/aes"
-import * as CENC from "crypto-js/enc-utf8"
+import { BSON } from 'bson';
+import { Buffer } from 'buffer';
+import * as crypto from "crypto";
+
 
 import BlobParser from "./parsers/blobparser";
 import { BlobParserI } from "./parsers/blobparseri";
-import Paste from "./pastes/paste"
-import { randomPassword } from "./util"
+import Paste from "./pastes/paste";
+import { randomPassword } from "./util";
+
 
 export interface Payload {
-  data: string;
+  data: Buffer;
   key: string;
 }
 
 export function decryptFile(data: string, name: string, key: string): BlobParserI {
-  const parser = BlobParser.parse(data, name, key);
-  return parser;
+  return BlobParser.parse(data, name, key);
 }
 
-export function encryptFile(paste: Paste, keysize: number = 32): Payload {
-  let result: string = CENC.parse(paste.serialize().toString());
+export function encryptFile(paste: Paste, passwordsize: number = 32): Payload {
+  const data = paste.serialize();
+  const password = randomPassword(passwordsize);
 
-  let password: string = randomPassword(keysize);
-  let encrypted: any = CAES.encrypt(result, password);
-  result = encrypted.toString();
+  const payload = {
+    data: null,
+    iterations: 10000,
+    salt: crypto.randomBytes(8),
+    version: 2,
+  };
+
+  const key = crypto.pbkdf2Sync(
+    password, payload.salt, payload.iterations, 5, 'sha512'
+  );
+
+  const cipher = crypto.createCipher('aes256', key);
+  const encrypted = Buffer.concat([cipher.update(data), cipher.final()]);
+
+  payload.data = encrypted;
+  const bson = new BSON();
 
   return {
-    data: result,
+    data: bson.serialize(payload),
     key: password,
   };
 }

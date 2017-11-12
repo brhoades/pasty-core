@@ -22,7 +22,7 @@ export default class CodeFile extends File {
     return {
       id: this.id,
       name: this.name,
-      data: Buffer.from(this.data, 'base64'),
+      data: Buffer.from(this.data, 'utf8'),
       meta: this.meta,
     }
   }
