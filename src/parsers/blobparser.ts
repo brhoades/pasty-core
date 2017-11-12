@@ -28,7 +28,7 @@ export default class BlobParser {
     } catch (e) {
       console.log("Not v2");
       console.log(e);
-      return new BlobParserV1(data, name, key);
+      return new BlobParserV1(Buffer.from(data).toString('utf8'), name, key);
     }
   }
 }
