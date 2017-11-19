@@ -19,8 +19,13 @@ export default class File {
   }
 
   // return json-serialized file
-  serialize(): string {
-    return JSON.stringify(this.rawObject());
+  serialize() {
+    return {
+      id: this.id,
+      name: this.name,
+      data: this.data,
+      meta: this.meta,
+    };
   }
 
   rawObject() {

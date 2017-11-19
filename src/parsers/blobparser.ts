@@ -26,8 +26,6 @@ export default class BlobParser {
         throw new Error(`Unknown blob API version: "${results.version}".`);
       }
     } catch (e) {
-      console.log("Not v2");
-      console.log(e);
       return new BlobParserV1(Buffer.from(data).toString('utf8'), name, key);
     }
   }
