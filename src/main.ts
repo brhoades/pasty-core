@@ -11,3 +11,5 @@ export { default as PasteFile } from './pastes/pastefile';
 export { default as CodeFile } from './pastes/codefile';
 
 export { default as MetaData } from './pastes/metadata';
+
+export { default as EventCryptor } from './encrypt';
