@@ -71,7 +71,19 @@ export default class EventCryptor extends EventEmitter {
       });
     });
 
-    this.cipher.write(data);
+    // smooth out progress bar
+    const chunkSize = 512*1024;
+
+    console.log(data.length);
+    if (data.length <= chunkSize) {
+      this.cipher.write(data);
+    } else {
+      for (let offset=0; offset<data.length; offset += chunkSize) {
+        const end = offset + chunkSize;
+        this.cipher.write(data.slice(offset, end > data.length ? data.length : end));
+      }
+    }
+
     this.cipher.end();
   }
 }
