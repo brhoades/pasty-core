@@ -21,4 +21,13 @@ export default class BlobParserV1 implements BlobParserI {
 
     return PasteParser.parse(this.name, this.key, jsonData)
   }
+
+  // Legacy, won't be async.
+  decryptAsync(progress: (p: number) => any, complete: (p: Paste) => any) {
+    const rawWords = CAES.decrypt(this.data, this.key);
+    const jsonData = CENC.stringify(rawWords);
+
+    progress(100);
+    complete(PasteParser.parse(this.name, this.key, jsonData));
+  }
 }

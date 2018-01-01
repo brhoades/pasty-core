@@ -31,4 +31,43 @@ export default class BlobParserV2 implements BlobParserI {
 
     return PasteParser.parse(this.name, this.key, decrypted);
   }
+
+  // TODO: Event listener? This name doesn't match func.
+  decryptAsync(progress: (p: number) => any, complete: (p: Paste) => any) {
+    if (typeof this.data === 'string') {
+      throw Error('Unsupported data type for Blob API V2.');
+    }
+
+    const key = crypto.pbkdf2Sync(
+      this.key, <any>(this.data.salt.buffer), this.data.iterations, 5, 'sha512'
+    );
+    const decipher = crypto.createDecipher('aes256', key);
+
+    let decrypted;
+
+    decipher.on('readable', () => {
+      const part = decipher.read();
+
+      if (part) {
+        if (decrypted) {
+          decrypted = Buffer.concat([decrypted, part]);
+        } else {
+          decrypted = part;
+        }
+
+        // Allocated size of buffer / original buffer size
+        if (typeof this.data !== "string") {
+          progress(decrypted.byteLength / this.data.data.buffer.byteLength);
+        }
+      }
+    });
+
+    decipher.on('end', () => {
+      progress(1);
+      complete(PasteParser.parse(this.name, this.key, decrypted));
+    });
+
+    decipher.write(<any>(this.data.data.buffer));
+    decipher.end();
+  }
 }
