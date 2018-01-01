@@ -67,7 +67,20 @@ export default class BlobParserV2 implements BlobParserI {
       complete(PasteParser.parse(this.name, this.key, decrypted));
     });
 
-    decipher.write(<any>(this.data.data.buffer));
+    // smooth out progress bar
+    const chunkSize = 512*1024;
+
+    if (this.data.data.length <= chunkSize) {
+      decipher.write(<any>(this.data.data.buffer));
+    } else {
+      for (let offset=0; offset<this.data.data.buffer.byteLength; offset += chunkSize) {
+        const end = offset + chunkSize;
+        decipher.write(
+          <any>(this.data.data.buffer.slice(offset, end > this.data.data.byteLength ? this.data.data.byteLength : end))
+        );
+      }
+    }
+
     decipher.end();
   }
 }

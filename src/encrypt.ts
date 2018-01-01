@@ -74,7 +74,6 @@ export default class EventCryptor extends EventEmitter {
     // smooth out progress bar
     const chunkSize = 512*1024;
 
-    console.log(data.length);
     if (data.length <= chunkSize) {
       this.cipher.write(data);
     } else {
