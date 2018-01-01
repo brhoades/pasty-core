@@ -25,5 +25,6 @@
     "src",
     "tsconfig.json"
   ],
-  "types": "./dist/main.d.ts"
+  "types": "./dist/main.d.ts",
+  "license": "AGPL-3.0+"
 }
